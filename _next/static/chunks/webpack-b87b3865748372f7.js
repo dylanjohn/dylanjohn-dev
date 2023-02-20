@@ -80,7 +80,7 @@
       )
     }),
     (n.miniCssF = function (e) {
-      return 'static/css/bd086fcd5246867d.css'
+      return 'static/css/f20a3b31ed4b870a.css'
     }),
     (n.g = (function () {
       if ('object' === typeof globalThis) return globalThis
@@ -143,7 +143,7 @@
         Object.defineProperty(e, Symbol.toStringTag, { value: 'Module' }),
         Object.defineProperty(e, '__esModule', { value: !0 })
     }),
-    (n.p = '/_next/'),
+    (n.p = './_next/'),
     (function () {
       var e = { 272: 0 }
       ;(n.f.j = function (t, r) {

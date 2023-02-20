@@ -2826,14 +2826,14 @@
         (t.getDomainLocale = function (e, t, r, n) {
           return !1
         }),
-        (t.addLocale = A),
-        (t.delLocale = C),
-        (t.hasBasePath = M),
-        (t.addBasePath = L),
-        (t.delBasePath = T),
-        (t.isLocalURL = I),
-        (t.interpolateAs = N),
-        (t.resolveHref = H),
+        (t.addLocale = C),
+        (t.delLocale = j),
+        (t.hasBasePath = L),
+        (t.addBasePath = T),
+        (t.delBasePath = I),
+        (t.isLocalURL = N),
+        (t.interpolateAs = D),
+        (t.resolveHref = U),
         (t.default = void 0)
       var p = r(2700),
         d = r(2497),
@@ -2866,44 +2866,45 @@
       function k(e) {
         return e && e.__esModule ? e : { default: e }
       }
-      function R() {
+      var R = '/dylanjohn-dev'
+      function A() {
         return Object.assign(new Error('Route Cancelled'), { cancelled: !0 })
       }
-      function A(e, t, r) {
+      function C(e, t, r) {
         return e
       }
-      function C(e, t) {
+      function j(e, t) {
         return e
       }
-      function j(e) {
+      function M(e) {
         var t = e.indexOf('?'),
           r = e.indexOf('#')
         return (t > -1 || r > -1) && (e = e.substring(0, t > -1 ? t : r)), e
       }
-      function M(e) {
-        return '' === (e = j(e)) || e.startsWith('/')
-      }
       function L(e) {
-        return (function (e, t) {
-          if (!e.startsWith('/') || !t) return e
-          var r = j(e)
-          return p.normalizePathTrailingSlash(''.concat(t).concat(r)) + e.slice(r.length)
-        })(e, '')
+        return (e = M(e)) === R || e.startsWith(R + '/')
       }
       function T(e) {
-        return (e = e.slice(''.length)).startsWith('/') || (e = '/'.concat(e)), e
+        return (function (e, t) {
+          if (!e.startsWith('/') || !t) return e
+          var r = M(e)
+          return p.normalizePathTrailingSlash(''.concat(t).concat(r)) + e.slice(r.length)
+        })(e, R)
       }
       function I(e) {
+        return (e = e.slice(R.length)).startsWith('/') || (e = '/'.concat(e)), e
+      }
+      function N(e) {
         if (e.startsWith('/') || e.startsWith('#') || e.startsWith('?')) return !0
         try {
           var t = y.getLocationOrigin(),
             r = new URL(e, t)
-          return r.origin === t && M(r.pathname)
+          return r.origin === t && L(r.pathname)
         } catch (n) {
           return !1
         }
       }
-      function N(e, t, r) {
+      function D(e, t, r) {
         var n = '',
           o = x.getRouteRegex(e),
           a = o.groups,
@@ -2937,7 +2938,7 @@
           { params: u, result: n }
         )
       }
-      function D(e, t) {
+      function H(e, t) {
         var r = {}
         return (
           Object.keys(e).forEach(function (n) {
@@ -2946,7 +2947,7 @@
           r
         )
       }
-      function H(e, t, r) {
+      function U(e, t, r) {
         var n,
           o = 'string' === typeof t ? t : E.formatWithValidation(t),
           a = o.match(/^[a-zA-Z]{1,}:\/\//),
@@ -2961,7 +2962,7 @@
           var u = y.normalizeRepeatedSlashes(i)
           o = (a ? a[0] : '') + u
         }
-        if (!I(o)) return r ? [o] : o
+        if (!N(o)) return r ? [o] : o
         try {
           n = new URL(o.startsWith('#') ? e.asPath : e.pathname, 'http://n')
         } catch (v) {
@@ -2973,10 +2974,10 @@
           var l = ''
           if (g.isDynamicRoute(c.pathname) && c.searchParams && r) {
             var s = w.searchParamsToUrlQuery(c.searchParams),
-              f = N(c.pathname, c.pathname, s),
+              f = D(c.pathname, c.pathname, s),
               d = f.result,
               h = f.params
-            d && (l = E.formatWithValidation({ pathname: d, hash: c.hash, query: D(s, h) }))
+            d && (l = E.formatWithValidation({ pathname: d, hash: c.hash, query: H(s, h) }))
           }
           var _ = c.origin === n.origin ? c.href.slice(c.origin.length) : c.href
           return r ? [_, l || _] : _
@@ -2984,23 +2985,23 @@
           return r ? [o] : o
         }
       }
-      function U(e) {
+      function F(e) {
         var t = y.getLocationOrigin()
         return e.startsWith(t) ? e.substring(t.length) : e
       }
-      function F(e, t, r) {
-        var n = f(H(e, t, !0), 2),
+      function W(e, t, r) {
+        var n = f(U(e, t, !0), 2),
           o = n[0],
           a = n[1],
           i = y.getLocationOrigin(),
           u = o.startsWith(i),
           c = a && a.startsWith(i)
-        ;(o = U(o)), (a = a ? U(a) : a)
-        var l = u ? o : L(o),
-          s = r ? U(H(e, r)) : a || o
-        return { url: l, as: c ? s : L(s) }
+        ;(o = F(o)), (a = a ? F(a) : a)
+        var l = u ? o : T(o),
+          s = r ? F(U(e, r)) : a || o
+        return { url: l, as: c ? s : T(s) }
       }
-      function W(e, t) {
+      function q(e, t) {
         var r = p.removePathTrailingSlash(_.denormalizePagePath(e))
         return '/404' === r || '/_error' === r
           ? e
@@ -3010,14 +3011,14 @@
               }),
             p.removePathTrailingSlash(e))
       }
-      var q = Symbol('SSG_DATA_NOT_FOUND')
-      function B(e, t, r) {
+      var B = Symbol('SSG_DATA_NOT_FOUND')
+      function Y(e, t, r) {
         return fetch(e, { credentials: 'same-origin' }).then(function (n) {
           if (!n.ok) {
-            if (t > 1 && n.status >= 500) return B(e, t - 1, r)
+            if (t > 1 && n.status >= 500) return Y(e, t - 1, r)
             if (404 === n.status)
               return n.json().then(function (e) {
-                if (e.notFound) return { notFound: q }
+                if (e.notFound) return { notFound: B }
                 throw new Error('Failed to load static props')
               })
             throw new Error('Failed to load static props')
@@ -3025,11 +3026,11 @@
           return r.text ? n.text() : n.json()
         })
       }
-      function Y(e, t, r, n, o) {
+      function z(e, t, r, n, o) {
         var a = new URL(e, window.location.href).href
         return void 0 !== n[a]
           ? n[a]
-          : (n[a] = B(e, t ? 3 : 1, { text: r })
+          : (n[a] = Y(e, t ? 3 : 1, { text: r })
               .catch(function (e) {
                 throw (t || d.markAssetError(e), e)
               })
@@ -3040,7 +3041,7 @@
                 throw (delete n[a], e)
               }))
       }
-      var z = (function () {
+      var V = (function () {
         function e(t, r, n, o) {
           var a = o.initialProps,
             i = o.pageLoader,
@@ -3071,7 +3072,7 @@
                     a = t.idx
                   m._idx = a
                   var i = b.parseRelativeUrl(r).pathname
-                  ;(m.isSsr && n === L(m.asPath) && i === L(m.pathname)) ||
+                  ;(m.isSsr && n === T(m.asPath) && i === T(m.pathname)) ||
                     (m._bps && !m._bps(t)) ||
                     m.change(
                       'replaceState',
@@ -3089,7 +3090,7 @@
                   c = m.query
                 m.changeState(
                   'replaceState',
-                  E.formatWithValidation({ pathname: L(u), query: c }),
+                  E.formatWithValidation({ pathname: T(u), query: c }),
                   y.getURL()
                 )
               }
@@ -3111,7 +3112,7 @@
             (this.pageLoader = i)
           var S = g.isDynamicRoute(t) && self.__NEXT_DATA__.autoExport
           if (
-            ((this.basePath = ''),
+            ((this.basePath = R),
             (this.sub = f),
             (this.clc = null),
             (this._wrapApp = c),
@@ -3138,7 +3139,7 @@
             ;(P._shouldResolveHref = n !== t),
               this.changeState(
                 'replaceState',
-                E.formatWithValidation({ pathname: L(t), query: r }),
+                E.formatWithValidation({ pathname: T(t), query: r }),
                 y.getURL(),
                 P
               )
@@ -3166,7 +3167,7 @@
               value: function (e, t) {
                 var r,
                   n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {}
-                return (e = (r = F(this, e, t)).url), (t = r.as), this.change('pushState', e, t, n)
+                return (e = (r = W(this, e, t)).url), (t = r.as), this.change('pushState', e, t, n)
               },
             },
             {
@@ -3175,7 +3176,7 @@
                 var r,
                   n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {}
                 return (
-                  (e = (r = F(this, e, t)).url), (t = r.as), this.change('replaceState', e, t, n)
+                  (e = (r = W(this, e, t)).url), (t = r.as), this.change('replaceState', e, t, n)
                 )
               },
             },
@@ -3194,9 +3195,9 @@
                       O,
                       k,
                       R,
-                      H,
+                      A,
                       U,
-                      B,
+                      F,
                       Y,
                       z,
                       V,
@@ -3233,13 +3234,13 @@
                         for (;;)
                           switch ((o.prev = o.next)) {
                             case 0:
-                              if (I(r)) {
+                              if (N(r)) {
                                 o.next = 3
                                 break
                               }
                               return (window.location.href = r), o.abrupt('return', !1)
                             case 3:
-                              ;(l = a._h || a._shouldResolveHref || j(r) === j(n)),
+                              ;(l = a._h || a._shouldResolveHref || M(r) === M(n)),
                                 (_ = s({}, c.state)),
                                 a._h && (c.isReady = !0),
                                 (v = _.locale),
@@ -3255,11 +3256,11 @@
                                 (O = void 0 === S || S),
                                 (k = { shallow: w }),
                                 c._inFlightRoute && c.abortComponentLoad(c._inFlightRoute, k),
-                                (n = L(A(M(n) ? T(n) : n, a.locale, c.defaultLocale))),
-                                (R = C(M(n) ? T(n) : n, _.locale)),
+                                (n = T(C(L(n) ? I(n) : n, a.locale, c.defaultLocale))),
+                                (R = j(L(n) ? I(n) : n, _.locale)),
                                 (c._inFlightRoute = n),
-                                (H = v !== _.locale),
-                                a._h || !c.onlyAHashChange(R) || H)
+                                (A = v !== _.locale),
+                                a._h || !c.onlyAHashChange(R) || A)
                               ) {
                                 o.next = 36
                                 break
@@ -3276,7 +3277,7 @@
                             case 36:
                               return (
                                 (U = b.parseRelativeUrl(r)),
-                                (B = U.pathname),
+                                (F = U.pathname),
                                 (Y = U.query),
                                 (o.prev = 39),
                                 (o.t0 = f),
@@ -3303,10 +3304,10 @@
                               )
                             case 55:
                               if (
-                                (c.urlIsNew(R) || H || (t = 'replaceState'),
+                                (c.urlIsNew(R) || A || (t = 'replaceState'),
                                 ($ = n),
-                                (B = B ? p.removePathTrailingSlash(T(B)) : B),
-                                !l || '/_error' === B)
+                                (F = F ? p.removePathTrailingSlash(I(F)) : F),
+                                !l || '/_error' === F)
                               ) {
                                 o.next = 70
                                 break
@@ -3317,19 +3318,19 @@
                               ;($ = G.asPath),
                                 G.matchedPage &&
                                   G.resolvedHref &&
-                                  ((B = G.resolvedHref),
-                                  (U.pathname = L(B)),
+                                  ((F = G.resolvedHref),
+                                  (U.pathname = T(F)),
                                   (r = E.formatWithValidation(U))),
                                 (o.next = 70)
                               break
                             case 69:
-                              ;(U.pathname = W(B, z)),
-                                U.pathname !== B &&
-                                  ((B = U.pathname),
-                                  (U.pathname = L(B)),
+                              ;(U.pathname = q(F, z)),
+                                U.pathname !== F &&
+                                  ((F = U.pathname),
+                                  (U.pathname = T(F)),
                                   (r = E.formatWithValidation(U)))
                             case 70:
-                              if (I(n)) {
+                              if (N(n)) {
                                 o.next = 75
                                 break
                               }
@@ -3339,9 +3340,9 @@
                               return (window.location.href = n), o.abrupt('return', !1)
                             case 75:
                               if (
-                                (($ = C(T($), _.locale)),
+                                (($ = j(I($), _.locale)),
                                 (a.shallow && 1 !== a._h) ||
-                                  (1 === a._h && !g.isDynamicRoute(p.removePathTrailingSlash(B))))
+                                  (1 === a._h && !g.isDynamicRoute(p.removePathTrailingSlash(F))))
                               ) {
                                 o.next = 96
                                 break
@@ -3352,7 +3353,7 @@
                                   as: n,
                                   cache: !0,
                                   pages: z,
-                                  pathname: B,
+                                  pathname: F,
                                   query: Y,
                                   locale: _.locale,
                                   isPreview: _.isPreview,
@@ -3365,7 +3366,7 @@
                               }
                               ;(Y = s({}, Y, X.parsedAs.query)),
                                 ($ = X.asPath),
-                                (B = X.resolvedHref),
+                                (F = X.resolvedHref),
                                 (U.pathname = X.resolvedHref),
                                 (r = E.formatWithValidation(U)),
                                 (o.next = 96)
@@ -3395,7 +3396,7 @@
                                 o.abrupt('return', new Promise(function () {}))
                               )
                             case 96:
-                              if (((K = p.removePathTrailingSlash(B)), !g.isDynamicRoute(K))) {
+                              if (((K = p.removePathTrailingSlash(F)), !g.isDynamicRoute(K))) {
                                 o.next = 112
                                 break
                               }
@@ -3404,7 +3405,7 @@
                                 (Z = Q.pathname),
                                 (J = x.getRouteRegex(K)),
                                 (ee = P.getRouteMatcher(J)(Z)),
-                                (re = (te = K === Z) ? N(K, Z, Y) : {}),
+                                (re = (te = K === Z) ? D(K, Z, Y) : {}),
                                 ee && (!te || re.result))
                               ) {
                                 o.next = 111
@@ -3440,7 +3441,7 @@
                                 ? (n = E.formatWithValidation(
                                     Object.assign({}, Q, {
                                       pathname: re.result,
-                                      query: D(Y, re.params),
+                                      query: H(Y, re.params),
                                     })
                                   ))
                                 : Object.assign(Y, ee)
@@ -3449,7 +3450,7 @@
                                 e.events.emit('routeChangeStart', n, k),
                                 (o.prev = 113),
                                 (o.next = 117),
-                                c.getRouteInfo(K, B, Y, n, $, k, _.locale, _.isPreview)
+                                c.getRouteInfo(K, F, Y, n, $, k, _.locale, _.isPreview)
                               )
                             case 117:
                               if (
@@ -3475,8 +3476,8 @@
                                 break
                               }
                               return (
-                                ((pe = b.parseRelativeUrl(fe)).pathname = W(pe.pathname, z)),
-                                (de = F(c, fe, fe)),
+                                ((pe = b.parseRelativeUrl(fe)).pathname = q(pe.pathname, z)),
+                                (de = W(c, fe, fe)),
                                 (he = de.url),
                                 (_e = de.as),
                                 o.abrupt('return', c.change(t, he, _e, a))
@@ -3487,7 +3488,7 @@
                                 o.abrupt('return', new Promise(function () {}))
                               )
                             case 129:
-                              if (((_.isPreview = !!ce.__N_PREVIEW), ce.notFound !== q)) {
+                              if (((_.isPreview = !!ce.__N_PREVIEW), ce.notFound !== B)) {
                                 o.next = 144
                                 break
                               }
@@ -3518,7 +3519,7 @@
                                 e.events.emit('beforeHistoryChange', n, k),
                                 c.changeState(t, r, n, a),
                                 a._h &&
-                                  '/_error' === B &&
+                                  '/_error' === F &&
                                   500 ===
                                     (null === (oe = self.__NEXT_DATA__.props) ||
                                     void 0 === oe ||
@@ -3536,7 +3537,7 @@
                                   .set(
                                     s({}, _, {
                                       route: K,
-                                      pathname: B,
+                                      pathname: F,
                                       query: Y,
                                       asPath: R,
                                       isFallback: !1,
@@ -3632,7 +3633,7 @@
                               throw (
                                 (e.events.emit('routeChangeError', t, a, i),
                                 (window.location.href = a),
-                                R())
+                                A())
                               )
                             case 6:
                               if (
@@ -3767,7 +3768,7 @@
                                 (o.next = 21),
                                 s._getData(function () {
                                   return v || m
-                                    ? Y(g, s.isSsr, !1, v ? s.sdc : s.sdr, !!v && !l)
+                                    ? z(g, s.isSsr, !1, v ? s.sdc : s.sdr, !!v && !l)
                                     : s.getInitialProps(_, {
                                         pathname: t,
                                         query: r,
@@ -3895,12 +3896,12 @@
                               ((h = o.sent),
                               (d = h.__rewrites),
                               !(_ = S.default(
-                                L(A(t, n.locale)),
+                                T(C(t, n.locale)),
                                 l,
                                 d,
                                 i.query,
                                 function (e) {
-                                  return W(e, l)
+                                  return q(e, l)
                                 },
                                 n.locales
                               )).externalDest)
@@ -3910,7 +3911,7 @@
                             }
                             return o.abrupt('return')
                           case 18:
-                            ;(f = C(T(_.asPath), n.locale)),
+                            ;(f = j(I(_.asPath), n.locale)),
                               _.matchedPage &&
                                 _.resolvedHref &&
                                 ((u = _.resolvedHref),
@@ -3919,7 +3920,7 @@
                               (o.next = 23)
                             break
                           case 22:
-                            ;(i.pathname = W(i.pathname, l)),
+                            ;(i.pathname = q(i.pathname, l)),
                               i.pathname !== u &&
                                 ((u = i.pathname),
                                 (i.pathname = u),
@@ -3931,7 +3932,7 @@
                             return (
                               (o.next = 27),
                               n._preflightRequest({
-                                as: L(t),
+                                as: T(t),
                                 cache: !0,
                                 pages: l,
                                 pathname: u,
@@ -3954,7 +3955,7 @@
                                 n.pageLoader._isSsg(m).then(function (t) {
                                   return (
                                     !!t &&
-                                    Y(
+                                    z(
                                       n.pageLoader.getDataHref({
                                         href: e,
                                         asPath: f,
@@ -4052,7 +4053,7 @@
             {
               key: '_getFlightData',
               value: function (e) {
-                return Y(e, !0, !0, this.sdc, !1).then(function (e) {
+                return z(e, !0, !0, this.sdc, !1).then(function (e) {
                   return { fresh: !0, data: e }
                 })
               },
@@ -4070,8 +4071,8 @@
                           switch ((r.prev = r.next)) {
                             case 0:
                               return (
-                                (n = j(e.as)),
-                                (a = C(M(n) ? T(n) : n, e.locale)),
+                                (n = M(e.as)),
+                                (a = j(L(n) ? I(n) : n, e.locale)),
                                 (r.next = 4),
                                 t.pageLoader.getMiddlewareList()
                               )
@@ -4157,14 +4158,14 @@
                               return (
                                 (w = b.parseRelativeUrl(
                                   v.normalizeLocalePath(
-                                    M(g.rewrite) ? T(g.rewrite) : g.rewrite,
+                                    L(g.rewrite) ? I(g.rewrite) : g.rewrite,
                                     t.locales
                                   ).pathname
                                 )),
                                 (S = p.removePathTrailingSlash(w.pathname)),
                                 e.pages.includes(S)
                                   ? ((P = !0), (x = S))
-                                  : (x = W(S, e.pages)) !== w.pathname &&
+                                  : (x = q(S, e.pages)) !== w.pathname &&
                                     e.pages.includes(x) &&
                                     (P = !0),
                                 r.abrupt('return', {
@@ -4187,11 +4188,11 @@
                               return (
                                 (E = p.removePathTrailingSlash(
                                   v.normalizeLocalePath(
-                                    M(g.redirect) ? T(g.redirect) : g.redirect,
+                                    L(g.redirect) ? I(g.redirect) : g.redirect,
                                     t.locales
                                   ).pathname
                                 )),
-                                (k = F(t, E, E)),
+                                (k = W(t, E, E)),
                                 (R = k.url),
                                 (A = k.as),
                                 r.abrupt('return', { type: 'redirect', newUrl: R, newAs: A })
@@ -4275,7 +4276,7 @@
               key: 'abortComponentLoad',
               value: function (t, r) {
                 this.clc &&
-                  (e.events.emit('routeChangeError', R(), t, r), this.clc(), (this.clc = null))
+                  (e.events.emit('routeChangeError', A(), t, r), this.clc(), (this.clc = null))
               },
             },
             {
@@ -4326,7 +4327,7 @@
           e
         )
       })()
-      ;(t.default = z), (z.events = m.default())
+      ;(t.default = V), (V.events = m.default())
     },
     7795: function (e, t, r) {
       'use strict'
